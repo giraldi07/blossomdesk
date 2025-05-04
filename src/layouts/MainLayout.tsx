@@ -45,20 +45,27 @@ const MainLayout = () => {
 
   return (
     <div className={`flex min-h-screen bg-background ${theme}`}>
-      {/* Desktop Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} />
+      {/* Desktop Sidebar - Fixed position */}
+      <div className="hidden md:block fixed top-0 left-0 h-full z-40">
+        <Sidebar isOpen={isSidebarOpen} />
+      </div>
       
       {/* Mobile Sidebar */}
       <MobileSidebar isOpen={isMobileSidebarOpen} onClose={toggleMobileSidebar} />
       
-      <div className="flex flex-col flex-1">
+      {/* Main Content Area */}
+      <div 
+        className={`flex flex-col flex-1 w-full transition-all duration-200 ${
+          isSidebarOpen ? 'md:ml-64' : 'md:ml-16'
+        }`}
+      >
         <Header 
           toggleSidebar={toggleSidebar} 
           toggleMobileSidebar={toggleMobileSidebar} 
           isSidebarOpen={isSidebarOpen}
         />
         
-        <main className="flex-1 p-4 md:p-6 transition-all duration-200 animate-fadeIn">
+        <main className="flex-1 p-4 md:p-6 animate-fadeIn overflow-y-auto">
           <Outlet />
         </main>
         

@@ -29,11 +29,9 @@ const Sidebar = ({ isOpen }: SidebarProps) => {
   ];
 
   const isActive = (path: string) => {
-    // Handle exact match for dashboard
     if (path === '/dashboard') {
       return location.pathname === path;
     }
-    // Handle nested routes (e.g., /projects/1 should highlight Projects tab)
     return location.pathname.startsWith(path);
   };
 
@@ -43,14 +41,18 @@ const Sidebar = ({ isOpen }: SidebarProps) => {
       transition-all duration-300 ease-in-out
       ${isOpen ? 'w-64' : 'w-0 -translate-x-full md:w-16 md:translate-x-0'}
       shadow-sm md:relative
+      flex flex-col
     `}>
-      <div className="flex flex-col h-full">
-        <div className={`h-16 flex items-center justify-center px-4 border-b border-border ${isOpen ? 'justify-start' : 'justify-center'}`}>
-          <Logo compact={!isOpen} />
-        </div>
+      {/* Header */}
+      <div className={`h-16 flex items-center px-4 border-b border-border ${isOpen ? 'justify-start' : 'justify-center'}`}>
+        <Logo compact={!isOpen} />
+      </div>
 
-        <div className="flex-1 overflow-y-auto scrollbar-hide py-4">
-          <nav className="px-3 space-y-1">
+      {/* Navigation - Main Content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Scrollable area - only on mobile */}
+        <div className="md:overflow-y-visible overflow-y-auto scrollbar-hide flex-1">
+          <nav className="px-3 space-y-1 py-2">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -63,11 +65,12 @@ const Sidebar = ({ isOpen }: SidebarProps) => {
             ))}
           </nav>
 
-          <div className="mt-8 pt-4 border-t border-border">
+          {/* Account Section */}
+          <div className="mt-auto pt-4 border-t border-border">
             <h3 className={`px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider ${isOpen ? 'block' : 'sr-only'}`}>
               Account
             </h3>
-            <nav className="mt-2 px-3 space-y-1">
+            <nav className="mt-2 px-3 space-y-1 pb-2">
               {accountItems.map((item) => (
                 <Link
                   key={item.path}
@@ -89,25 +92,26 @@ const Sidebar = ({ isOpen }: SidebarProps) => {
             </nav>
           </div>
         </div>
-        
-        {isOpen && user && (
-          <div className="p-4 border-t border-border">
-            <div className="flex items-center">
-              <div className="avatar">
-                <img 
-                  src={user.avatarUrl || "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} 
-                  alt={user.name}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{user.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
-              </div>
+      </div>
+      
+      {/* User Profile - Fixed at bottom */}
+      {isOpen && user && (
+        <div className="p-4 border-t border-border">
+          <div className="flex items-center">
+            <div className="avatar">
+              <img 
+                src={user.avatarUrl || "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} 
+                alt={user.name}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{user.name}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </aside>
   );
 };

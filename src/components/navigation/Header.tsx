@@ -12,7 +12,7 @@ type HeaderProps = {
   isSidebarOpen: boolean;
 };
 
-const Header = ({ toggleSidebar, toggleMobileSidebar, isSidebarOpen }: HeaderProps) => {
+const Header = ({ toggleSidebar, toggleMobileSidebar }: HeaderProps) => {
   const { theme, toggleTheme } = useTheme();
   const { notifications } = useNotifications();
   const [showNotifications, setShowNotifications] = useState(false);

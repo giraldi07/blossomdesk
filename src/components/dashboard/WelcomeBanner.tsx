@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 type WelcomeBannerProps = {
   userName: string;
@@ -36,9 +37,11 @@ const WelcomeBanner = ({ userName, timeOfDay }: WelcomeBannerProps) => {
           Check your notifications for recent updates from your team and clients.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <button className="bg-white text-primary hover:bg-white/90 px-4 py-2 rounded-md font-medium transition-colors">
-            View Projects
-          </button>
+          <Link to="/projects">
+            <button className="bg-white text-primary hover:bg-white/90 px-4 py-2 rounded-md font-medium transition-colors">
+              View Projects
+            </button>
+          </Link>
           <button className="bg-white/20 text-white hover:bg-white/30 px-4 py-2 rounded-md font-medium transition-colors">
             Create New Project
           </button>

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { 
-  ChevronDown, Filter, MoreHorizontal, Search, X,
-  User, Lock, Bell, CreditCard, Globe, Palette, Database, Users, Key
+  MoreHorizontal, Search, X,
+  Lock, Bell, CreditCard, Globe, Palette, Users, Key,
+  Plus
 } from 'lucide-react';
 
 const Settings = () => {
